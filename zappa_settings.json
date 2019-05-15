@@ -1,0 +1,32 @@
+{
+  "test": {
+    "apigateway_enabled": false,
+    "aws_region": "ap-south-1",
+    "profile_name": "default",
+    "project_name": "prod-bi",
+    "app_function": "data_sqs_handler.process_messages",
+    "runtime": "python3.6",
+    "s3_bucket": "zappa-prod-bi",
+    "events": [
+      {
+        "function": "data_sqs_handler.process_messages",
+        "event_source": {
+          "arn": "arn:aws:sqs:ap-south-1:259662926596:test_queue_mongodb_sqs",
+          "batch_size": 1,
+          "enabled": true
+        }
+      }
+    ],
+    "extra_permissions": [
+      {
+        "Effect": "Allow",
+        "Action": [
+          "secretsmanager:*"
+        ],
+        "Resource": "*"
+      }
+    ],
+    "memory_size": 1024,
+    "timeout_seconds": 300
+  }
+}
